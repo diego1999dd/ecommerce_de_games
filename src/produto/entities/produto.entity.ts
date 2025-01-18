@@ -1,6 +1,8 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Transform, TransformFnParams } from 'class-transformer';
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
+import { Categoria } from '../../categoria/entities/categoria.entity';
+import { NumericTransformer } from '../../util/numerictransformer';
 
 @Entity({ name: 'tb_produtos' })
 export class Produto {
@@ -27,10 +29,22 @@ export class Produto {
   @Column({ length: 1000, nullable: false })
   descricao: string;
 
+  @IsNumber({ maxDecimalPlaces: 2 })
   @IsNotEmpty()
-  @Column({ type: 'decimal', precision: 10, scale: 2 })
+  @IsPositive()
+  @Column({
+    type: 'decimal',
+    precision: 10,
+    scale: 2,
+    transformer: new NumericTransformer(),
+  })
   preco: number;
 
   @Column({ type: 'date' })
   data_lancamento: Date;
+
+  @ManyToOne(() => Categoria, (categoria) => categoria.produto, {
+    onDelete: 'CASCADE',
+  })
+  categoria: Categoria;
 }
