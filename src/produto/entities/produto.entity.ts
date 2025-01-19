@@ -1,4 +1,10 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Transform, TransformFnParams } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 import { Categoria } from '../../categoria/entities/categoria.entity';

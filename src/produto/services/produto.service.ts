@@ -47,6 +47,12 @@ export class ProdutoService {
   }
 
   async create(produto: Produto): Promise<Produto> {
+    const categoria = await this.categoriaService.findById(
+      produto.categoria.id,
+    );
+
+    produto.categoria = categoria;
+
     return await this.produtoRepository.save(produto);
   }
 
