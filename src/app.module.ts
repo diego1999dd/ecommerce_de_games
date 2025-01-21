@@ -6,6 +6,9 @@ import { Produto } from './produto/entities/produto.entity';
 import { ProdutoModule } from './produto/produto.module';
 import { Categoria } from './categoria/entities/categoria.entity';
 import { CategoriaModule } from './categoria/categoria.module';
+import { Usuario } from './usuario/entities/usuario.entity';
+import { AuthModule } from './auth/auth.module';
+import { UsuarioModule } from './usuario/usuario.module';
 
 @Module({
   imports: [
@@ -16,11 +19,13 @@ import { CategoriaModule } from './categoria/categoria.module';
       username: 'root',
       password: 'root',
       database: 'db_the_game_loading',
-      entities: [Produto, Categoria],
+      entities: [Produto, Categoria, Usuario],
       synchronize: true,
     }),
     ProdutoModule,
     CategoriaModule,
+    AuthModule,
+    UsuarioModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -9,6 +9,7 @@ import { Transform, TransformFnParams } from 'class-transformer';
 import { IsNotEmpty, IsNumber, IsPositive } from 'class-validator';
 import { Categoria } from '../../categoria/entities/categoria.entity';
 import { NumericTransformer } from '../../util/numerictransformer';
+import { Usuario } from '../../usuario/entities/usuario.entity';
 
 @Entity({ name: 'tb_produtos' })
 export class Produto {
@@ -59,7 +60,12 @@ export class Produto {
   })
   categoria: Categoria;
 
-  // Adicionei este método para formatar o preço no JSON
+  @ManyToOne(() => Usuario, (usuario) => usuario.produto, {
+    onDelete: 'CASCADE',
+  })
+  usuario: Usuario;
+
+  /* Adicionei este método para formatar o preço no JSON
   toJSON() {
     return {
       id: this.id,
@@ -71,6 +77,7 @@ export class Produto {
       preco: this.preco.toFixed(2), // Sempre retorna com duas casas decimais!
       data_lancamento: this.data_lancamento,
       categoria: this.categoria,
+      usuario: this.usuario,
     };
-  }
+  }*/
 }
